@@ -1,42 +1,28 @@
+
 import Home from '@/pages/Home'
+import Search from '@/pages/Search'
 import Login from '@/pages/Login'
 import Reginter from '@/pages/Reginter'
-import Search from '@/pages/Search'
 
 export default [
+
     {
         path:'/',
-        component:Home,
-        meta:{
-            isShow:true
-        }
+        component:Home
     },
     {
+        path:'/search',
+        component:Search
+    },
+    
+    {
         path:'/login',
-        component:Login,
-        meta:{
-            isShow:false
-        }
+        component:Login
     },
     {
         path:'/reginter',
-        component:Reginter,
-        meta:{
-            isShow:false
-        }
+        component:Reginter
     },
-    {
-            // 加上问好代表可穿可不传,但是要验证判断同时使用
-        path:'/search/:keyword?',
-        component:Search,
-        name:'search',
-        props(route){
-            return{
-                keyword:route.params.keyword
-            }
-        },
-        meta:{
-            isShow:true
-        }
-    }
+
 ]
+   

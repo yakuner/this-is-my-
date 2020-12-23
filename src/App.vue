@@ -2,7 +2,7 @@
   <div>
     <Header/>
     <router-view></router-view>
-    <Footer v-show="this.$route.meta.isShow"/>
+    <Footer/>
   </div>
 </template>
 
@@ -15,15 +15,6 @@ export default {
     Header,
     Footer
   },
-  mounted(){
-    this.$store.dispatch('CategoryList')
-  },
-  // computed:{
-  //   isShow(){
-  //       const isShow = this.$route.name
-  //      return isShow ==='login' || isShow ==='reginter' ? true : false 
-  //   }
-  // }
 }
 </script>
 
