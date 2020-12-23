@@ -1,5 +1,5 @@
 # myproject
-
+day02-2  这是第二遍写代码
 ## Project setup
 ```
 yarn install
