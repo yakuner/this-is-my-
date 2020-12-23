@@ -1,22 +1,32 @@
 <template>
   <div>
-    <Header></Header>
+    <Header/>
     <router-view></router-view>
-    <Footer></Footer>
+    <Footer v-show="this.$route.meta.isShow"/>
   </div>
 </template>
 
 <script>
-import Header from './components/Header'
-import Footer from './components/Footer'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 export default {
   name: '',
   components:{
-    Header,Footer
-  }
+    Header,
+    Footer
+  },
+  mounted(){
+    this.$store.dispatch('CategoryList')
+  },
+  // computed:{
+  //   isShow(){
+  //       const isShow = this.$route.name
+  //      return isShow ==='login' || isShow ==='reginter' ? true : false 
+  //   }
+  // }
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 </style>

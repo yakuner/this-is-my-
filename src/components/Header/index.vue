@@ -30,7 +30,6 @@
           <router-link class="logo" title="尚品汇" to="/">
           <img src="./images/logo.png" alt="" />
           </router-link>
-          
         <!-- </a> -->
       </h1>
       <div class="searchArea">
@@ -39,9 +38,9 @@
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
-            v-model="keyWord"
+            v-model="keyword"
           />
-          <button class="sui-btn btn-xlarge btn-danger" type="button" @click="search">
+          <button class="sui-btn btn-xlarge btn-danger" type="button" @click.prevent="search">
             搜索
           </button>
         </form>
@@ -55,15 +54,18 @@ export default {
   name: "Header",
   data(){
     return{
-      keyWord:''
+      keyword:''
     }
   },
   methods:{
     search(){
-      const {keyWord} = this
-      // this.$router.push(`/search/${keyWord}`)
-      // this.$message('这是一条消息提示');
-      this.$router.push({name:'search',params:{keyWord}})
+      const {keyword} = this
+      const params = {}
+      if(keyword.trim()){
+          params.keyword = keyword
+           this.$router.push({name:'search',params})
+      }
+     
     }
   }
 };
