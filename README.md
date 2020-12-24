@@ -1,5 +1,5 @@
 # myproject
-电商网站home页面静态
+第三遍三级菜单,以及vuex
 ## Project setup
 ```
 yarn install
