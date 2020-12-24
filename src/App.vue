@@ -15,9 +15,6 @@ export default {
     Header,
     Footer
   },
-  mounted(){
-    this.$store.dispatch('CategoryList')
-  },
   // computed:{
   //   isShow(){
   //       const isShow = this.$route.name
