@@ -13,25 +13,46 @@
         <a href="###">秒杀</a>
       </nav>
       <div class="sort">
-        <div class="all-sort-list2">
+        <div class="all-sort-list2" @click="toSearch">
           <div class="item" v-for="c1 in getCotagroy" :key="c1.categoryId">
             <h3>
-              <!-- <a href="">{{c1.categoryName}}</a> -->
-              <router-link :to="`/search?categoryName=${c1.categoryName}&category1Id=${c1.categoryId}`">{{c1.categoryName}}</router-link>
-            </h3>
-            <div class="item-list clearfix" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
-              <div class="subitem">
-               <dl class="fore">
-                  <dt>
-                    <!-- <a href="">{{c2.categoryName}}</a> -->
-                    <router-link :to="`/search?categoryName=${c2.categoryName}&category2Id=${c2.categoryId}`">{{c2.categoryName}}</router-link>
+              <!-- <a href="javascript:" @click="$router.push({name:'search',query:{categoryName:c1.categoryName,category2Id:c1.categoryId}})">{{c1.categoryName}}</a> -->
 
+              <a
+                href="javascript:"
+                :data-categoryName="c1.categoryName"
+                :data-category1Id="c1.categoryId"
+                >{{ c1.categoryName }}</a
+              >
+              <!-- <router-link :to="`/search?categoryName=${c1.categoryName}&category1Id=${c1.categoryId}`">{{c1.categoryName}}</router-link> -->
+            </h3>
+            <div
+              class="item-list clearfix"
+              v-for="c2 in c1.categoryChild"
+              :key="c2.categoryId"
+            >
+              <div class="subitem">
+                <dl class="fore">
+                  <dt>
+                    <!-- <a href="javascript:" @click="$router.push({name:'search',query:{categoryName:c2.categoryName,category2Id:c2.categoryId}})">{{c2.categoryName}}</a> -->
+                    <a
+                      href="javascript:"
+                      :data-categoryName="c2.categoryName"
+                      :data-category2Id="c2.categoryId"
+                      >{{ c2.categoryName }}</a
+                    >
+                    <!-- <router-link :to="`/search?categoryName=${c2.categoryName}&category2Id=${c2.categoryId}`">{{c2.categoryName}}</router-link> -->
                   </dt>
                   <dd>
                     <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                      <!-- <a href="recharge.html">{{c3.categoryName}}</a> -->
-                      <router-link :to="`/search?categoryName=${c3.categoryName}&category3Id=${c3.categoryId}`">{{c3.categoryName}}</router-link>
-
+                      <!-- <a href="javascript:" @click="$router.push({name:'search',query:{categoryName:c3.categoryName,category3Id:c3.categoryId}})">{{c3.categoryName}}</a> -->
+                      <a
+                        href="javascript:"
+                        :data-categoryName="c3.categoryName"
+                        :data-category3Id="c3.categoryId"
+                        >{{ c3.categoryName }}</a
+                      >
+                      <!-- <router-link :to="`/search?categoryName=${c3.categoryName}&category3Id=${c3.categoryId}`">{{c3.categoryName}}</router-link> -->
                     </em>
                   </dd>
                 </dl>
@@ -45,15 +66,37 @@
 </template>
 
 <script>
+import {judgeSearch} from '@/utile/catagroyToSearch'
 export default {
   name: "TypeNav",
-   computed:{
-     getCotagroy(){
-       return this.$store.state.home.CategoryList
-     }
-  }
-}
- 
+  methods: {
+    //创建一个用于判断跳转路径的工具函数
+    toSearch(event) {
+      //  当遇到大量的绑定事件但是是同一个点击效果时,这时我们要考虑到交给共同的父元素委托,但是还要考虑到是点击的哪个按钮,
+      //  想要获取单一的值我们就要给每个标签都加上自定义属性,这样就可以相对减少损耗
+      //  为什么需要判断A不可靠,为什么不可靠?为什么判定标签属性:单纯判定a标签有可能不是我们想要的对象,
+      // 每次点击都会在自定义对象中存储着唯一点击的这个对象,我们判断这个对象存在就可以跳转
+      const {dataset} = event.target;
+      // 该函数接收三个参数,this.要跳转的路由名,自定义标签名
+      judgeSearch(this,"search",dataset);
+      // console.dir(target.dataset);
+      // if(target.tagName.toUpperCase() === 'A'){
+      //    this.$router.push({name:'search',query:{categoryName:categoryname,category1Id:category1id}})
+      // }
+      // if(target.tagName.toUpperCase() === 'A'){
+      //    this.$router.push({name:'search',query:{categoryName:categoryname,category2Id:category2id}})
+      // }
+      // if(target.tagName.toUpperCase() === 'A'){
+      //    this.$router.push({name:'search',query:{categoryName:categoryname,category3Id:category3id}})
+      // }
+    },
+  },
+  computed: {
+    getCotagroy() {
+      return this.$store.state.home.CategoryList;
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>

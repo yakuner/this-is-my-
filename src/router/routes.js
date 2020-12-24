@@ -12,7 +12,8 @@ export default [
     },
     {
         path:'/search',
-        component:Search
+        component:Search,
+        name:'search'
     },
     
     {
