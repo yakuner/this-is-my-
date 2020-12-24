@@ -1,5 +1,5 @@
 # myproject
-day02-2
+电商网站home页面静态
 ## Project setup
 ```
 yarn install
