@@ -60,10 +60,11 @@ export default {
   methods:{
     search(){
       const {keyword} = this
-      const params = {}
       if(keyword.trim()){
-          params.keyword = keyword
-           this.$router.push({name:'search',params})
+          let params ={keyword}
+          let query = {}
+           this.$router.push({name:'search',params,query:this.$route.query})
+           this.keyword = ''
       }
      
     }

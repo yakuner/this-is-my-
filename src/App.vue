@@ -15,6 +15,9 @@ export default {
     Header,
     Footer
   },
+  mounted(){
+    this.$store.dispatch('getCotaGroyList')
+  }
   // computed:{
   //   isShow(){
   //       const isShow = this.$route.name
