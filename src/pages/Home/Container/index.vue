@@ -3,20 +3,11 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
+        <div class="swiper-container" ref="swiper">
+          <div class="swiper-wrapper" >
+            <div class="swiper-slide" v-for="banner in bannerList " :key="banner.id">
+              <img :src="banner.imageUrl" style="width:100%;height:464px"/>
             </div>
-            <!-- <div class="swiper-slide">
-              <img src="./images/banner2.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner3.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner4.jpg" />
-            </div> -->
           </div>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
@@ -98,16 +89,43 @@
     </div>
   </div>
 </template>
-
 <script>
-import Swiper from 'swiper'
+import Swiper from "swiper";
+import {mapState} from 'vuex'
 export default {
   name: "",
-  // swiper中的数据必须在页面数据展示到页面才可以使用
-  
+  // swiper中的数据必须在页面数据展示到页面才可以使用,如果页面中多个地方用到了swiper的样式类,
+  //那么从一个组件中定义了样式就会影响到其它组件的效果,所以用ref打标识,每个组件中的ref都是相对对立,各个组件互不干扰
+  computed:{
+      ...mapState({
+        bannerList: state => state.home.bannerList
+      })
+  },
+  watch:{
+    //swiper在动态渲染展示左右切换失效的问题?
+      bannerList(){
+         this.$nextTick(()=>{
+              new Swiper(this.$refs.swiper, {
+          // direction: "vertical", // 垂直切换选项 
+          loop: true, // 循环模式选项
+          autoplay:{  //配置自动轮播功能
+            delay:3000
+          },
+          // 如果需要分页器
+          pagination: {
+            el: ".swiper-pagination",
+          },
+          // 如果需要前进后退按钮
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+        });
+         })
+      }
+  }
 };
 </script>
-
 <style lang="less" scoped>
 .list-container {
   width: 1200px;
