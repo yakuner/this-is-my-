@@ -1,5 +1,5 @@
 # myproject
-第三遍三级菜单,以及vuex
+初始化静态页面
 ## Project setup
 ```
 yarn install
