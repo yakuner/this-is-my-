@@ -100,8 +100,11 @@
 </template>
 
 <script>
+import Swiper from 'swiper'
 export default {
   name: "",
+  // swiper中的数据必须在页面数据展示到页面才可以使用
+  
 };
 </script>
 
