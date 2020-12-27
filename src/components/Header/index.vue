@@ -69,9 +69,10 @@ export default {
           let query = {}
            if(this.$route.name === 'search'){
             this.$router.replace({name:'search',params,query:this.$route.query})
-            this.keyword = ''
+              this.keyword = ''
+          }else{
+             this.$router.push({name:'search',params,query:this.$route.query})
           }
-          this.$router.push({name:'search',params,query:this.$route.query})
          
       }
      
