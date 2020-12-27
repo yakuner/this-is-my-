@@ -103,14 +103,19 @@ export default {
   },
   watch:{
     //swiper在动态渲染展示左右切换失效的问题?
+    // swiper需要在页面渲染完成才可以正常运行,如果单一监视返回的数据变化,那么工作流程就是数据变化同步调用watch监视数据的变化,
+    //  但是数据是在watch中的代码执行完毕后才异步的渲染到页面的 ,
+    //  所以要使用nextTick()这个方法,该方法接收一个回调,该回调是在页面渲染完成后才执行回调里面的代码
       bannerList(){
          this.$nextTick(()=>{
               new Swiper(this.$refs.swiper, {
           // direction: "vertical", // 垂直切换选项 
           loop: true, // 循环模式选项
           autoplay:{  //配置自动轮播功能
-            delay:3000
+            delay:3000,
+            disableOnInteraction:false // 用户操作完成后是否停止轮播
           },
+      
           // 如果需要分页器
           pagination: {
             el: ".swiper-pagination",

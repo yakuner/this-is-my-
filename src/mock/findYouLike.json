@@ -1,0 +1,32 @@
+[
+    {
+        "id":"1",
+        "imageUrl":"/images/like_01.png",
+        "title":"阳光美包新款单肩包女包时尚子母包四件套女",
+        "price":110
+    },
+    {
+        "id":"2",
+        "imageUrl":"/images/like_02.png",
+        "title":"跳楼大减价了.过来买过来看啊",
+        "price":"110"
+    },
+    {
+        "id":"3",
+        "imageUrl":"/images/like_03.png",
+        "title":"阳光美包新款单肩包女包时尚子母包四件套女",
+        "price":"110"
+    },
+    {
+        "id":"4",
+        "imageUrl":"/images/like_01.png",
+        "title":"这个世界没有抛弃你我,而是...",
+        "price":"110"
+    },
+    {
+        "id":"5",
+        "imageUrl":"/images/like_02.png",
+        "title":"我的大刀早已饥渴难耐了",
+        "price":"110"
+    }
+]

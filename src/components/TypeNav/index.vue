@@ -116,6 +116,7 @@ export default {
         this.isHome = false;
       }
     },
+    // 跳转页面的函数
     toSearch(event) {
       // 解构event.target 取出里面的自定义标签的内容,所以我们要自定义标签
       const {
@@ -126,38 +127,36 @@ export default {
       } = event.target.dataset;
       if (categroy1id) {
         let params = {};
-        this.$router
-          .push({
-            name: "search",
-            query: { cotagroyName: cotagroyname, category1Id: categroy1id },
-            params: this.$route.params,
-          })
-          .catch(() => {});
+        if(this.$route.name === 'search'){
+        this.$router.replace({name: "search",query: { cotagroyName: cotagroyname, category1Id: categroy1id },params: this.$route.params,})          
+        }
+        this.$router.push({name: "search",query: { cotagroyName: cotagroyname, category1Id: categroy1id },params: this.$route.params,})
       }
-      if (categroy2id) {
-        this.$router
-          .push({
-            name: "search",
-            query: { cotagroyName: cotagroyname, category2Id: categroy2id },
-            params: this.$route.params,
-          })
-          .catch(() => {});
+     if (categroy1id) {
+        let params = {};
+        if(this.$route.name === 'search'){
+        this.$router.replace({name: "search",query: { cotagroyName: cotagroyname, category2Id: categroy2id },params: this.$route.params,})          
+        }
+        this.$router.push({name: "search",query: { cotagroyName: cotagroyname, category2Id: categroy2id },params: this.$route.params,})
       }
-      if (categroy3id) {
-        this.$router
-          .push({
-            name: "search",
-            query: { cotagroyName: cotagroyname, category3Id: categroy3id },
-            params: this.$route.params,
-          })
-          .catch(() => {});
+    if (categroy1id) {
+        let params = {};
+        if(this.$route.name === 'search'){
+        this.$router.replace({name: "search",query: { cotagroyName: cotagroyname, category3Id: categroy3id },params: this.$route.params,})          
+        }
+        this.$router.push({name: "search",query: { cotagroyName: cotagroyname, category3Id: categroy3id },params: this.$route.params,})
       }
+      // 非home主页点击三级菜单后隐藏效果
+      this.leavecategoryList()
     },
   },
+  
   mounted() {
+    // 是否是首页展示三级菜单栏
     this.isHome = this.$route.path === "/" ? true : false;
   },
   computed: {
+    // 获取state中的状态
     ...mapState({
       cotaGroyList: (state) => state.home.cotaGroyList,
     }),

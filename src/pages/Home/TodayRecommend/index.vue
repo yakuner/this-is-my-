@@ -4,30 +4,28 @@
                 <ul class="recommend">
                     <li class="clock">
                         <div class="time">
-                            <img src="./images/clock.png" />
+                            <img :src="remmonds.imageUrl" />
                             <h3>今日推荐</h3>
                         </div>
                     </li>
-                    <li class="banner">
-                        <img src="./images/today01.png" />
+                    <li class="banner" v-for="today in remmonds.todays" :key="today.id">
+                        <img :src="today.imageUrl" />
                     </li>
-                    <li class="banner">
-                        <img src="./images/today02.png" />
-                    </li>
-                    <li class="banner">
-                        <img src="./images/today03.png" />
-                    </li>
-                    <li class="banner">
-                        <img src="./images/today04.png" />
-                    </li>
+                    
                 </ul>
             </div>
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   name: "todayRecommend",
+  computed:{
+      ...mapState({
+          remmonds : state => state.home.remmonds
+      })
+  }
 };
 </script>
 

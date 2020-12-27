@@ -57,18 +57,27 @@ export default {
       keyword:''
     }
   },
+  mounted(){
+   
+  },
   methods:{
     search(){
       const {keyword} = this
       if(keyword.trim()){
+        // 跳转时携带的参数问题
           let params ={keyword}
           let query = {}
-           this.$router.push({name:'search',params,query:this.$route.query})
-           this.keyword = ''
+           if(this.$route.name === 'search'){
+            this.$router.replace({name:'search',params,query:this.$route.query})
+            this.keyword = ''
+          }
+          this.$router.push({name:'search',params,query:this.$route.query})
+         
       }
      
-    }
-  }
+    },
+    //搜索完毕清空搜索框
+  },
 };
 </script>
 
