@@ -19,4 +19,18 @@ return  state.aaa || []  或者对象 这样没有值使用属性也不会报错
 ```
 
 
-在search中
+遇到的问题
+1.携带参数跳转的问题,如果单独跳转params或者query参数就会丢失另外一个,
+为什么?
+因为每次跳转都会重新请求路由路径携带参数,但是请求的路径两个会互相覆盖
+解决?
+在两个跳转的中补全params和query两个参数 ,this.$router.push(name:'search',params:this.$route.params,query:this.$route.query)
+2.搜索页搜索框重新请求数据清空button按钮?
+在header组件按钮中判断如果当前是在search路由组件中就清空,
+3.在搜索页进行搜索点击后退无法退到home路由组件中?
+因为在搜索中每次我们使用跳转的时候都是用的push跳转,push跳转没跳转一次就就会累计一层历史记录,
+解决?
+在按钮和导航中判断是否当前组件是search,如果是改成点击没有历史记录的replace,
+
+
+
