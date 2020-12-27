@@ -1,24 +1,30 @@
-# myproject
-初始化静态页面
-## Project setup
-```
-yarn install
-```
+总结:
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
 
-### Compiles and minifies for production
-```
-yarn build
-```
 
-### Lints and fixes files
-```
-yarn lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+今日代码步骤:
+1.三级菜单携带参数跳转到search页面中,
+将当前所有的参数保存,因为三个等级不会同时存在,所以我们需要判断哪个有值就添加对应的query进行跳转
+2.按钮跳转
+直接写入跳转携带参数
+3.
+在搜索页点击搜索和导航后点击后退回退不到home路由组件中,?
+使用push这个方法会保留每一次搜索历史记录,所以不会一下子回退到首页,
+解决?
+判断当前组件是否是search,是的话跳转方法修改成replace
+2.跳转搜索页面params参数和query互相刷新的问题?
+因为每次跳转只携带当前写入的params或者query参数,并没有同时保存当前的参数信息
+解决?
+在每次跳转的时候都把参数补全,这样可以随时获取当前的信息
+3.路由参数信息清空地址栏还是保存原来的状态?
+因为我们没有重新请求路径
+每次修改参数都要重新请求路径
+4.添加到面包屑增加删除
+5.设置品牌信息
+删除品牌信息,
+6.添加删除数组,添加到面包屑,
+非重验证
+
+明日需要做,mock模拟数据,修改轮播图相关操作

@@ -63,9 +63,14 @@ export default {
       const params = {}
       if(keyword.trim()){
           params.keyword = keyword
-           this.$router.push({name:'search',params})
+          if(this.$route.name === 'search'){
+             this.$router.replace({name:'search',params,query:this.$route.query})
+             this.keyword = ''
+              
+          }else{
+              this.$router.push({name:'search',params,query:this.$route.query})
+          }
       }
-     
     }
   }
 };
