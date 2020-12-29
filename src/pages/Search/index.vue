@@ -24,24 +24,23 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li :class="{active:orderArr[0] === '1'}">
+                  <a  @click="priceSort('1')">综合<i v-show="orderArr[0] === '1'">{{orderArr[1] !== 'desc' ? '↑':'↓'}}</i></a>
                 </li>
-                <li>
-                  <a href="#">销量</a>
+                <li :class="{active:orderArr[0] === '5'}">
+                  <a  @click="priceSort('5')">销量<i v-show="orderArr[0] === '5'">{{orderArr[1] !== 'desc' ? '↑':'↓'}}</i></a>
                 </li>
-                <li>
-                  <a href="#">新品</a>
+                <li :class="{active:orderArr[0] === '3'}">
+                  <a  @click="priceSort('3')">新品<i v-show="orderArr[0] === '3'">{{orderArr[1] !== 'desc' ? '↑':'↓'}}</i></a>
                 </li>
-                <li>
-                  <a href="#">评价</a>
+                <li :class="{active:orderArr[0] === '4'}">
+                  <a  @click="priceSort('4')">评价<i v-show="orderArr[0] === '4'">{{orderArr[1] !== 'desc' ? '↑':'↓'}}</i></a>
                 </li>
-                <li>
-                  <a href="#">价格⬆</a>
+                <li :class="{active:orderArr[0] === '2'}">
+                  <a  @click="priceSort('2')">价格<i v-show="orderArr[0] === '2'">{{orderArr[1] !== 'desc' ? '↑':'↓'}}</i></a>
                 </li>
-                <li>
-                  <a href="#">价格⬇</a>
-                </li>
+               
+               
               </ul>
             </div>
           </div>
@@ -72,35 +71,15 @@
               </li>
                 </ul>
           </div>
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
-          </div>
+          <!-- 需要接受三个值一个修改的方法 -->
+           <!-- 传入的每页的尺寸,以及总的数据,然后传入的单页码,显示的间隔,回调函数 -->
+          <Pagination 
+              :currentP = "options.pageNo"
+              :pageSize= "options.pageSize"
+              :allReq = 'total'
+              :showPage="5"
+              @getNewPage = "getNewPage"
+          />
         </div>
       </div>
     </div>
@@ -115,17 +94,21 @@
     data(){
       return{
         options:{
+          props:[],	// Array	N	商品属性的数组: ["属性ID:属性值:属性名"]示例: ["2:6.0～6.24英寸:屏幕尺寸"]
           category1Id:'',	// string	N	一级分类ID
           category2Id:'',	// string	N	二级分类ID
           category3Id:'',	// string	N	三级分类ID
           categoryName:'',	// string	N	分类名称
           keyword:'',	// string	N	搜索关键字
-          props:[],	// Array	N	商品属性的数组: ["属性ID:属性值:属性名"]示例: ["2:6.0～6.24英寸:屏幕尺寸"]
           trademark:'',	// string	N	品牌: "ID:品牌名称"示例: "1:苹果"
-          order:'',	// string	N	排序方式 1: 综合,2: 价格 asc: 升序,desc: 降序 示例: "1:desc"
+          order:'1:desc',	// string	N	排序方式 1: 综合,2: 价格 asc: 升序,desc: 降序 示例: "1:desc"
           pageNo:1,	// number	N	页码
-          pageSize:10	// number	N	每页数量
-        }
+          pageSize:3	// number	N	每页数量
+        },
+        // 总体相关
+        // isPrice:false,
+        // // 综合相关
+        // isComposite:true
       }
     },
     components: {
@@ -143,12 +126,24 @@
       //this.$router.push({name:'search',query:this.$route.query,params:this.$route.params})
     },
     methods:{
+      // 设计三个数值,刚开始为-2, 向下为-1 ,向上1
+      // 价格排序
+     priceSort(type1){
+      //  判断传入的值,如果是数字是综合排序,不是则是价格
+       let [flag,type] = this.orderArr
+       flag = type1
+       this.options.order = flag + ':' + (type === 'desc' ? 'arc' : 'desc' )
+       this.ageinSendReq()
+     },
       // 获取Params参数
       getCurrentParams(){
-        const {categoryName} = this.$route.query
+        const { category1Id,category2Id,category3Id,categoryName} = this.$route.query
         const {keyword} = this.$route.params
         this.options = {
           ...this.options,
+          category1Id,
+          category2Id,
+          category3Id,
           categoryName,
           keyword
       }
@@ -184,11 +179,26 @@
       removeProp(index){
         this.options.props.splice(index,1)
         this.ageinSendReq()
+      },
+      // 更新页面
+       getProductList (page=1) {
+        // 更新pageNo
+        this.options.pageNo = page
+        // 请求获取数据
+        this.ageinSendReq()
+      },  
+      // 接受一个默认值,如果没有写,用默认值代替
+      getNewPage(page=1){
+          if(this.options.pageNo === page) return 
+          this.options.pageNo = page
+          this.ageinSendReq()
       }
-      
     },
     computed:{
-      ...mapGetters(['goodsList'])
+      ...mapGetters(['goodsList','total']),
+      orderArr(){
+        return this.options.order.split(':')
+      }
     },
     watch:{
       // 监视当前路由对象,只要路径发生变化 那么就重新调用

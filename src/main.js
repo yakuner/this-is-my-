@@ -4,7 +4,11 @@ import router from '@/router'
 import store from '@/store'
 import TypeNav from '@/components/TypeNav'
 import Router from 'vue-router'
+import './mock/mockServer'
+import './plugin/awesome'
+import Pagination from '@/components/pagination'
 
+Vue.component(Pagination.name,Pagination)
 const routerPush = Router.prototype.push
 const routerReplace = Router.prototype.replace
 Router.prototype.push = function push(location) {

@@ -17,6 +17,7 @@ export default {
   },
   mounted(){
     this.$store.dispatch('getCotaGroyList')
+    this.$store.dispatch('getBannerList')
   }
   // computed:{
   //   isShow(){

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Document</title>
+        
+    </head>
+    <body>
+        <div id="app">
+            <ul>     
+                <li v-for="item in arr" :key="item">{{item}}</li>
+            </ul>
+        </div>
+        <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.js"></script>
+        <script type="text/javascript" >
+            let arr = []
+            for(let i= 0; i<1000; i++  ){
+                arr.push(i)
+            }
+            console.log(arr);
+            new Vue({
+                el:'#app',
+                data(){
+                    return{
+                            arr
+                        }
+                }
+            })
+        </script>
+    </body>
+</html>
