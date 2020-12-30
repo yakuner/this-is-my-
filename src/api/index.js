@@ -15,6 +15,21 @@ export const reqList  = (listObj) => {
 // 请求主页轮播数据
 export const reqHomeBanner = () => ajax.get('/cms/banner')
 
+// 请求商品详情页信息
+export const reqDetileInfo = (skuid) => {
+    return ajax({
+        url:`/item/${skuid}`
+    })
+}
+// 请求购物车成功信息
+// /api/cart/addToCart/{ skuId }/{ skuNum }
+export const reqShopChats  = (skuId,skuNum) => {
+    return ajax({
+        url:`/cart/addToCart/${ skuId }/${ skuNum }`,
+        method:'POST'
+    })
+}
+
 
 
 // mock数据请求

@@ -79,11 +79,11 @@ export default {
   data() {
     return {
       current: -2,
-      isShow: true,
+      isShow: false,
     };
   },
   created() {
-    this.isShow = this.$route.name !== "search" ? true : false;
+    this.isShow = this.$route.name === "home" ? true : false;
   },
   methods: {
     // 设计鼠标移动事件,加上样式
@@ -159,7 +159,7 @@ export default {
     // 离开的状态
     leaveAndHide() {
       this.current = -2;
-      if (this.$route.name === "search") {
+      if (this.$route.name !== "home") {
         this.isShow = false;
       }
     },

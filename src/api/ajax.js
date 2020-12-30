@@ -2,7 +2,7 @@ import axios from 'axios'
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 const service = axios.create({
-    baseURL:'http://39.99.186.36/api',
+    baseURL:'http://182.92.128.115/api',
     timeout:200000
 })
 // 设置请求拦截器,并设置进度条样式

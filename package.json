@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "babel-plugin-component": "^1.1.1",
     "core-js": "^3.6.5",
+    "element-ui": "^2.14.1",
     "less": "^4.0.0",
     "less-loader": "^7.1.0",
     "lodash": "^4.17.20",
